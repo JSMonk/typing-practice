@@ -5,7 +5,7 @@ import type { User } from "../entities/user";
 
 export default function useUsers() {
   const { userService, operationService } = useContext(Services);
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<readonly User[]>([]);
 
   useEffect(() => {
     userService.getAllUsers().then(setUsers);

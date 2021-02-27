@@ -6,3 +6,5 @@ export type OperationToRole = {
   [Operation.UPDATE_TO_CLIENT]: Role.CLIENT, 
   [Operation.UPDATE_TO_MODERATOR]: Role.MODERATOR, 
 }
+
+

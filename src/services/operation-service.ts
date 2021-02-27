@@ -1,9 +1,13 @@
+import or from "../utils/or";
 import UserService from "./user-service";
 import { Role } from "../entities/role";
+import { Admin } from "../entities/admin";
+import { Client } from "../entities/client";
+import { Moderator } from "../entities/moderator";
 import { Operation } from "../entities/operation";
 import type { User } from "../entities/user";
-import type { RoleToUser } from "../entities/role-to-user";
 import type { OperationToRole } from "../entities/operations-to-role";
+import type { UserForOperation } from "../utils/user-for-operation";
 
 export default class OperationService {
   private readonly operationToRole: OperationToRole = {
@@ -15,24 +19,57 @@ export default class OperationService {
   constructor(private readonly userService: UserService) {}
 
   runOperationFor(user: User, operation: Operation) {
-    const newRole = this.getNewRoleByOperation(operation);
-    if (!this.isAvailableOperationForUser(user, operation)) {
-      throw new Error(`${operation} is not available for the user`);
+    if (this.isUpdateToModeratorOperation(operation)) {
+      const adminOrClient = or(Admin, Client);
+      return this.runUpdateToModeratorOperation(adminOrClient(user));
     }
+
+    if (this.isUpdateToClientOperation(operation)) {
+      return this.runUpdateToClientOperation(Moderator.of(user)); }
+
+    return this.runUpdateToAdminOperation(Moderator.of(user));
+  }
+
+  isUpdateToAdminOperation(
+    operation: Operation
+  ): operation is Operation.UPDATE_TO_ADMIN {
+    return operation === Operation.UPDATE_TO_ADMIN;
+  }
+
+  isUpdateToClientOperation(
+    operation: Operation
+  ): operation is Operation.UPDATE_TO_CLIENT {
+    return operation === Operation.UPDATE_TO_CLIENT;
+  }
+
+  isUpdateToModeratorOperation(
+    operation: Operation
+  ): operation is Operation.UPDATE_TO_MODERATOR {
+    return operation === Operation.UPDATE_TO_MODERATOR;
+  }
+
+  private runUpdateToAdminOperation(
+    user: UserForOperation<Operation.UPDATE_TO_ADMIN>
+  ) {
+    const newRole = this.getNewRoleByOperation(Operation.UPDATE_TO_ADMIN);
     return this.userService.updateUserRole(user, newRole);
   }
 
-  private getNewRoleByOperation<O extends Operation>(
-    operation: O
-  ): OperationToRole[O] {
-    return this.operationToRole[operation];
+  private runUpdateToClientOperation(
+    user: UserForOperation<Operation.UPDATE_TO_CLIENT>
+  ) {
+    const newRole = this.getNewRoleByOperation(Operation.UPDATE_TO_CLIENT);
+    return this.userService.updateUserRole(user, newRole);
   }
 
-  private isAvailableOperationForUser<O extends Operation>(
-    user: User,
-    operation: O
-  ): user is RoleToUser[OperationToRole[O]] {
-    const availableOperations = this.userService.getAvailableOperations(user);
-    return availableOperations.includes(operation);
+  private runUpdateToModeratorOperation(
+    user: UserForOperation<Operation.UPDATE_TO_MODERATOR>
+  ) {
+    const newRole = this.getNewRoleByOperation(Operation.UPDATE_TO_MODERATOR);
+    return this.userService.updateUserRole(user, newRole);
+  }
+
+  private getNewRoleByOperation<O extends Operation>(operation: O) {
+    return this.operationToRole[operation];
   }
 }

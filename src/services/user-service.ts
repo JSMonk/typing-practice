@@ -1,17 +1,23 @@
 import { Role } from "../entities/role";
+import { Admin } from "../entities/admin";
+import { Client } from "../entities/client";
+import { Moderator } from "../entities/moderator";
 import { Operation } from "../entities/operation";
 import type { User } from "../entities/user";
 import type { RoleToUser } from "../entities/role-to-user";
 
 export default class UserService {
-  private users: User[] = [];
+  private users: readonly User[] = [];
 
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(): Promise<readonly User[]> {
     if (this.users.length !== 0) {
       return this.users;
     }
     const response = await this.fetch();
-    this.users = response.default;
+    this.users = response.default.map((u: any) => {
+      const User = this.getConstructorByRole(u.role);
+      return User.from(u);
+    });
     return this.users;
   }
 
@@ -19,20 +25,31 @@ export default class UserService {
     return import("../mocks/users.json");
   }
 
-  getAvailableOperations(user: User): Operation[] {
-    switch (user.role) {
-      case Role.CLIENT:
-      case Role.ADMIN:
-        return [Operation.UPDATE_TO_MODERATOR];
-      case Role.MODERATOR:
-        return [Operation.UPDATE_TO_CLIENT, Operation.UPDATE_TO_ADMIN];
-    }
+  async updateUserRole<R extends Role>(
+    user: Readonly<RoleToUser[R]>,
+    newRole: R
+  ) {
+    const User = this.getConstructorByRole(newRole);
+    this.users = this.users.map((u) => (u.id === user.id ? User.from(u) : u));
+    return this.users;
   }
 
-  async updateUserRole<R extends Role>(user: RoleToUser[R], newRole: R) {
-    this.users = this.users.map((u) =>
-      u.id === user.id ? { ...user, role: newRole } : u
-    );
-    return this.users;
+  getAvailableOperations(user: User) {
+    if (user instanceof Admin || user instanceof Client) {
+      return [Operation.UPDATE_TO_MODERATOR];
+    }
+
+    return [Operation.UPDATE_TO_CLIENT, Operation.UPDATE_TO_ADMIN];
+  }
+
+  getConstructorByRole(role: Role) {
+    switch (role) {
+      case Role.ADMIN:
+        return Admin;
+      case Role.CLIENT:
+        return Client;
+      case Role.MODERATOR:
+        return Moderator;
+    }
   }
 }

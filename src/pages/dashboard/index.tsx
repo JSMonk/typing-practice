@@ -42,10 +42,7 @@ export default function Dashboard(_: RouteComponentProps) {
         <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
       </Breadcrumb>
       <div className="site-layout-background content-container">
-        <Table
-          columns={columns}
-          dataSource={users.map((a) => ({ ...a, key: a.id }))}
-        />
+        <Table rowKey="id" columns={columns} dataSource={users} />
       </div>
     </Page>
   );
