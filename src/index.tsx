@@ -1,17 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import "./index.css";
+import "antd/dist/antd.css";
+import React from "react";
+import NotFound from "./pages/not-found";
+import ReactDOM from "react-dom";
+import Dashboard from "./pages/dashboard";
+import { Router } from "@reach/router";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Dashboard path="/" />
+      <NotFound default />
+    </Router>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

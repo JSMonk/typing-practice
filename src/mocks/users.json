@@ -1,0 +1,212 @@
+[
+  {
+    "id": "924a1c80-a24c-4da1-b255-fcb4bf1732f0",
+    "name": "مارال رضایی",
+    "email": "mrl.rdyy@example.com",
+    "password": "francois",
+    "role": "moderator"
+  },
+  {
+    "id": "9ed06ad4-02d8-4b3a-a7c0-34baaa8ff9bd",
+    "name": "Molly Harris",
+    "email": "molly.harris@example.com",
+    "password": "ratboy",
+    "role": "moderator"
+  },
+  {
+    "id": "6a6e12f0-e421-4722-aac8-120a3da730cd",
+    "name": "Magarete Knopf",
+    "email": "magarete.knopf@example.com",
+    "password": "987456",
+    "role": "admin"
+  },
+  {
+    "id": "1a8060aa-8079-4460-8eaf-c72fef2dbc45",
+    "name": "Evan Schmitt",
+    "email": "evan.schmitt@example.com",
+    "password": "tuan",
+    "role": "client"
+  },
+  {
+    "id": "7774fd26-4060-4464-8e6c-e2a684210ca7",
+    "name": "Catherine Robinson",
+    "email": "catherine.robinson@example.com",
+    "password": "raptor",
+    "role": "admin"
+  },
+  {
+    "id": "d115fd22-0639-4b2d-af7a-c993c5833390",
+    "name": "Annelies Jörg",
+    "email": "annelies.jorg@example.com",
+    "password": "bull",
+    "role": "moderator"
+  },
+  {
+    "id": "f865f0b0-e900-4b54-903c-016c87f8ac3e",
+    "name": "Ümit Akbulut",
+    "email": "umit.akbulut@example.com",
+    "password": "atomic",
+    "role": "admin"
+  },
+  {
+    "id": "724d168d-b02c-4ea8-915b-832053b20e8d",
+    "name": "Scarlett Wood",
+    "email": "scarlett.wood@example.com",
+    "password": "request",
+    "role": "moderator"
+  },
+  {
+    "id": "df9ce2c7-f1bc-4de4-b09b-0d6ab9d06db0",
+    "name": "Falk Heide",
+    "email": "falk.heide@example.com",
+    "password": "grant",
+    "role": "admin"
+  },
+  {
+    "id": "7a6d2b4a-2769-487b-bcb2-75cef3dfef18",
+    "name": "Harrison Martin",
+    "email": "harrison.martin@example.com",
+    "password": "buffet",
+    "role": "client"
+  },
+  {
+    "id": "16363bd3-244b-43ae-98fa-c2c73eb39f49",
+    "name": "Idunn Sletta",
+    "email": "idunn.sletta@example.com",
+    "password": "postov1000",
+    "role": "admin"
+  },
+  {
+    "id": "34a80c24-5b26-4f61-ac67-20936db8b6ef",
+    "name": "Aapo Saari",
+    "email": "aapo.saari@example.com",
+    "password": "zelda",
+    "role": "client"
+  },
+  {
+    "id": "71e87677-c944-44e2-9768-58832fbf83e3",
+    "name": "Louna Sanchez",
+    "email": "louna.sanchez@example.com",
+    "password": "penguin",
+    "role": "moderator"
+  },
+  {
+    "id": "2d003298-6711-42f3-a12a-e8591161ce6c",
+    "name": "رها احمدی",
+    "email": "rh.hmdy@example.com",
+    "password": "farscape",
+    "role": "client"
+  },
+  {
+    "id": "9ee30bd0-0faa-4bbc-9c5c-adfdbf5f3b7b",
+    "name": "Josefine Rey",
+    "email": "josefine.rey@example.com",
+    "password": "tomas",
+    "role": "client"
+  },
+  {
+    "id": "e8c9a640-cd6f-441d-acb2-950df0998cb6",
+    "name": "Theo Mackay",
+    "email": "theo.mackay@example.com",
+    "password": "ziggy",
+    "role": "moderator"
+  },
+  {
+    "id": "75e0f1f8-3555-4ce6-bc9f-c3ae0d2ba601",
+    "name": "Pedro Jones",
+    "email": "pedro.jones@example.com",
+    "password": "eileen",
+    "role": "moderator"
+  },
+  {
+    "id": "aab64e83-4978-401f-b342-6b8cb3175b52",
+    "name": "Milo Frøshaug",
+    "email": "milo.froshaug@example.com",
+    "password": "rock",
+    "role": "admin"
+  },
+  {
+    "id": "32a960d7-4f02-49e7-81f9-5853dab288dd",
+    "name": "Matilda Kivisto",
+    "email": "matilda.kivisto@example.com",
+    "password": "hallo",
+    "role": "moderator"
+  },
+  {
+    "id": "c67f3bd7-37a2-49c3-a7db-fcf7efcd6138",
+    "name": "Elijah Bailey",
+    "email": "elijah.bailey@example.com",
+    "password": "court",
+    "role": "moderator"
+  },
+  {
+    "id": "e5327179-a65f-49f7-a96e-6a8fb49cb505",
+    "name": "Laura Lemoine",
+    "email": "laura.lemoine@example.com",
+    "password": "lover1",
+    "role": "client"
+  },
+  {
+    "id": "1121d9a3-02b7-4ca3-9442-2f5bfcf2d604",
+    "name": "Saša Weustink",
+    "email": "sasa.weustink@example.com",
+    "password": "brandon1",
+    "role": "client"
+  },
+  {
+    "id": "cc77546f-0b96-4611-998f-992b7ddbd212",
+    "name": "Coline Fabre",
+    "email": "coline.fabre@example.com",
+    "password": "carpente",
+    "role": "client"
+  },
+  {
+    "id": "a315e56a-2d87-49df-943a-38e78385a222",
+    "name": "Nadie Vrede",
+    "email": "nadie.vrede@example.com",
+    "password": "rich",
+    "role": "moderator"
+  },
+  {
+    "id": "609807ec-9a2b-43e1-95b1-e4fc20befad5",
+    "name": "Enni Toro",
+    "email": "enni.toro@example.com",
+    "password": "expert",
+    "role": "client"
+  },
+  {
+    "id": "e5ffe1fd-335a-4861-b983-35e42cdf10e3",
+    "name": "Jonathan Arnold",
+    "email": "jonathan.arnold@example.com",
+    "password": "pussycat",
+    "role": "admin"
+  },
+  {
+    "id": "c9075ba7-d007-4d0b-b70e-2cfd87a99f59",
+    "name": "Kimberly Jordan",
+    "email": "kimberly.jordan@example.com",
+    "password": "brandi",
+    "role": "client"
+  },
+  {
+    "id": "69cc678c-9007-4217-b267-1992d8be9a65",
+    "name": "Alexander Reyes",
+    "email": "alexander.reyes@example.com",
+    "password": "series",
+    "role": "moderator"
+  },
+  {
+    "id": "1b3e3294-d2ac-4d0a-b68a-35145f959a0c",
+    "name": "Oskari Kauppi",
+    "email": "oskari.kauppi@example.com",
+    "password": "trader",
+    "role": "admin"
+  },
+  {
+    "id": "bb8b03e1-3a45-4ef8-932a-2237f85a0a78",
+    "name": "Ginestal Jesus",
+    "email": "ginestal.jesus@example.com",
+    "password": "shelter",
+    "role": "client"
+  }
+]
