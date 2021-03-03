@@ -1,0 +1,13 @@
+.login-container {
+  width: 40%;
+  max-width: 500px;
+  min-width: 200px;
+  text-align: center;
+}
+
+.full-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
