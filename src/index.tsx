@@ -6,14 +6,17 @@ import NotFound from "./pages/not-found";
 import ReactDOM from "react-dom";
 import Dashboard from "./pages/dashboard";
 import { Router } from "@reach/router";
+import { LogedInProvider } from "./providers/loged-in-user";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Dashboard path="/" />
-      <Login path="/login" />
-      <NotFound default />
-    </Router>
+    <LogedInProvider>
+      <Router>
+        <Dashboard path="/" />
+        <Login path="/login" />
+        <NotFound default />
+      </Router>
+    </LogedInProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

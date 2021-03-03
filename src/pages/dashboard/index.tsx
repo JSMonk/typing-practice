@@ -4,11 +4,13 @@ import Name from "./name";
 import Role from "./role";
 import Actions from "./actions";
 import useUsers from "../../hooks/use-users";
+import useCurrentUser from "../../hooks/use-current-user";
 import { Table, Breadcrumb } from "antd";
 import type { User } from "../../entities/user";
 import type { RouteComponentProps } from "@reach/router";
 
 export default function Dashboard(_: RouteComponentProps) {
+  const currentUser = useCurrentUser();
   const [users, onUserUpdates] = useUsers();
 
   const columns = [

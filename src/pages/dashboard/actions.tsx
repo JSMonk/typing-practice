@@ -6,11 +6,12 @@ import type { User } from "../../entities/user";
 
 type ActionsProps = {
   user: User;
+  currentUser: User;
   onAction: (action: Operation) => void;
 };
 
-export default function Actions({ user, onAction }: ActionsProps) {
-  const operations = useOperations(user);
+export default function Actions({ user, currentUser, onAction }: ActionsProps) {
+  const operations = useOperations(user, currentUser);
   const menu = (
     <Menu>
       {operations.map((operation, key) => (

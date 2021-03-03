@@ -1,27 +1,28 @@
 import "./styles.css";
+import useLogin from "../../hooks/use-login";
+import { useState } from "react";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Card, Form, Input, Button, Layout, Typography } from "antd";
+import type { Credentials } from "../../hooks/use-login";
 import type { RouteComponentProps } from "@reach/router";
 
 export default function Login(_: RouteComponentProps) {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
-  };
+  const [credentials, setCredentials] = useState<Credentials | null>(null);
+
+  useLogin(credentials);
 
   return (
-    <Layout className="full-page">
+    <Layout className="full-page login">
       <Card size="small" className="login-container">
         <Typography.Title>Login</Typography.Title>
         <Form
           name="normal_login"
           className="login-form"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
+          initialValues={{ remember: true }}
+          onFinish={setCredentials}
         >
           <Form.Item
-            name="username"
+            name="email"
             rules={[
               {
                 required: true,
@@ -31,7 +32,7 @@ export default function Login(_: RouteComponentProps) {
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
+              placeholder="Email"
             />
           </Form.Item>
           <Form.Item
