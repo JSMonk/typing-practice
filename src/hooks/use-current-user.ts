@@ -3,11 +3,11 @@ import { LogedInUser } from "../providers/loged-in-user";
 import type { User } from "../entities/user";
 import {navigate} from "@reach/router";
 
-export default function useCurrentUser(): User | null {
+export default function useCurrentUser(): User {
   const { state: { user } = { user: null } } = useContext(LogedInUser);
   if (user === null) {
     navigate("/login");
   }
-  return user;
+  return user as User;
 }
 

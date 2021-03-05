@@ -32,6 +32,7 @@ export default function Dashboard(_: RouteComponentProps) {
       render: (_: undefined, user: User) => (
         <Actions
           user={user}
+          currentUser={currentUser}
           onAction={(action) => onUserUpdates(user, action)}
         />
       ),
