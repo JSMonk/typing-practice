@@ -4,7 +4,7 @@ import { createContext } from "react";
 import LoginService from "./login-service";
 
 const userService = new UserService();
-const loginService = new LoginService();
+const loginService = new LoginService(userService);
 const operationService = new OperationService(userService);
 
 const Services = createContext({

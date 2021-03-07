@@ -1,5 +1,12 @@
 [
   {
+    "id": "114a1c80-a24c-4da1-b255-fcb4bf1732f0",
+    "name": "Vladislav",
+    "email": "vlad@g.com",
+    "password": "test",
+    "role": "moderator"
+  },
+  {
     "id": "924a1c80-a24c-4da1-b255-fcb4bf1732f0",
     "name": "مارال رضایی",
     "email": "mrl.rdyy@example.com",

@@ -12,6 +12,11 @@ type ActionsProps = {
 
 export default function Actions({ user, currentUser, onAction }: ActionsProps) {
   const operations = useOperations(user, currentUser);
+
+  if (!Boolean(operations.length)) {
+    return <span>Not Available operation</span>;
+  }
+
   const menu = (
     <Menu>
       {operations.map((operation, key) => (
