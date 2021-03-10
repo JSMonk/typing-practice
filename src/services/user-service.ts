@@ -2,11 +2,23 @@ import { Role } from "../entities/role";
 import { Admin } from "../entities/admin";
 import { Client } from "../entities/client";
 import { Moderator } from "../entities/moderator";
-import { Operation } from "../entities/operation";
-import type { User } from "../entities/user";
+import { LoggedUser, User } from "../entities/user";
 import type { RoleToUser } from "../entities/role-to-user";
+import { AVAILABLE_CONFIGURATION, ConfigOperationAdmin, ConfigOperationModerator } from "../entities/config-operation";
 
 export default class UserService {
+
+  static getConstructorByRole(role: Role) {
+    switch (role) {
+      case Role.ADMIN:
+        return Admin;
+      case Role.CLIENT:
+        return Client;
+      case Role.MODERATOR:
+        return Moderator;
+    }
+  }
+
   private users: readonly User[] = [];
 
   async getAllUsers(): Promise<readonly User[]> {
@@ -15,7 +27,7 @@ export default class UserService {
     }
     const response = await this.fetch();
     this.users = response.default.map((u: any) => {
-      const User = this.getConstructorByRole(u.role);
+      const User = UserService.getConstructorByRole(u.role);
       return User.from(u);
     });
     return this.users;
@@ -29,31 +41,25 @@ export default class UserService {
     user: Readonly<RoleToUser[R]>,
     newRole: R
   ) {
-    const User = this.getConstructorByRole(newRole);
+    const User = UserService.getConstructorByRole(newRole);
     this.users = this.users.map((u) => (u.id === user.id ? User.from(u) : u));
     return this.users;
   }
 
-  getAvailableOperations(user: User, currenUser: User): Operation[] {
-    if (currenUser instanceof Moderator) {
-      return [];
+  getAvailableOperations<U extends User>(
+    user: U,
+    currenUser: LoggedUser
+  ): AVAILABLE_CONFIGURATION {
+    if (this.isLoggedUserAdmin(currenUser)) {
+      const Config = ConfigOperationAdmin.from(user, currenUser);
+      return Config.getAvailableOperations();
+    } else {
+      const Config = ConfigOperationModerator.from(user, currenUser);
+      return Config.getAvailableOperations();
     }
-
-    if (user instanceof Admin || user instanceof Client) {
-      return [Operation.UPDATE_TO_MODERATOR];
-    }
-
-    return [Operation.UPDATE_TO_CLIENT, Operation.UPDATE_TO_ADMIN];
   }
 
-  getConstructorByRole(role: Role) {
-    switch (role) {
-      case Role.ADMIN:
-        return Admin;
-      case Role.CLIENT:
-        return Client;
-      case Role.MODERATOR:
-        return Moderator;
-    }
+  private isLoggedUserAdmin(loggedUser: LoggedUser): loggedUser is Admin {
+    return Admin.is(loggedUser);
   }
 }

@@ -1,12 +1,12 @@
 import useOperations from "../../hooks/use-operations";
 import { Operation } from "../../entities/operation";
-import { Dropdown, Menu } from "antd";
+import { Button, Dropdown, Menu } from "antd";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
-import type { User } from "../../entities/user";
+import type { LoggedUser, User } from "../../entities/user";
 
 type ActionsProps = {
   user: User;
-  currentUser: User;
+  currentUser: LoggedUser;
   onAction: (action: Operation) => void;
 };
 
@@ -14,7 +14,7 @@ export default function Actions({ user, currentUser, onAction }: ActionsProps) {
   const operations = useOperations(user, currentUser);
 
   if (!Boolean(operations.length)) {
-    return <span>Not Available operation</span>;
+    return <span>No available operations</span>;
   }
 
   const menu = (
@@ -32,9 +32,9 @@ export default function Actions({ user, currentUser, onAction }: ActionsProps) {
   );
   return (
     <Dropdown overlay={menu} trigger={["click"]}>
-      <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+      <Button className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
         Action <DownOutlined />
-      </a>
+      </Button>
     </Dropdown>
   );
 }

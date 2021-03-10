@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react";
-import type { User } from "../entities/user";
+import type { LoggedUser } from "../entities/user";
 import type { ReactChild } from "react";
 
 export enum LogedInActionType {
@@ -8,7 +8,7 @@ export enum LogedInActionType {
 
 type LogedInAction = {
   type: LogedInActionType.LOG_IN;
-  payload: User;
+  payload: LoggedUser;
 };
 
 type LogedInProviderProps = {
@@ -16,7 +16,7 @@ type LogedInProviderProps = {
 };
 
 type LogedInUserState = {
-  user: User | null;
+  user: LoggedUser | null;
 };
 
 type LogedInProviderContext = {

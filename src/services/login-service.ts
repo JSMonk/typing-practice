@@ -1,33 +1,17 @@
-import { Client } from "../entities/client";
-import { User } from "../entities/user";
-import { Credentials } from "../hooks/use-login";
+import { CredentialsCorrect, CredentialsInput, CredentialsApproved } from "../entities/credentials";
+import { LoggedUser } from "../entities/user";
 import UserService from "./user-service";
 
 export default class LoginService {
-  private users: readonly User[] = [];
-
   constructor(private readonly userService: UserService) {}
 
-  public async login(email: Credentials['email'], password: Credentials['password']): Promise<any> {
+  public async login(cred: CredentialsInput): Promise<LoggedUser> {
+    const users = await this.userService.getAllUsers();
+    const correctCred = CredentialsCorrect.isCorrect(users, cred);
+    return this.makeLogin(CredentialsApproved.isApproved(correctCred));
+  }
 
-    this.users = await this.userService.getAllUsers();
-    // get approvedCredentionals or throw Error
-    for (let u of this.users) {
-      if (u.email === email) {
-        if (u.password === password) {
-          const User = this.userService.getConstructorByRole(u.role);
-
-          if (User.name === Client.name) {
-            throw new Error("Permission denied");
-          }
-
-          return User.from(u);
-        }
-
-        break;
-      }
-    }
-
-    throw new Error("Password or user is incorrect");
+  private makeLogin(credentials: CredentialsApproved): LoggedUser {
+    return credentials.user;
   }
 }

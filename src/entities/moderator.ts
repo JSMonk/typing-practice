@@ -3,6 +3,10 @@ import { AccountInfo } from "./account-info";
 import type { User } from "./user";
 
 export class Moderator extends AccountInfo {
+  static is(user: User): user is Moderator {
+    return user instanceof Moderator;
+  }
+
   static of(user: User): Moderator {
     if (user instanceof Moderator) {
       return user;

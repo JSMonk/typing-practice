@@ -1,9 +1,12 @@
 import { Role } from "./role";
-import { Operation } from "../entities/operation";
 import { AccountInfo } from "./account-info";
 import type { User } from "./user";
 
 export class Client extends AccountInfo {
+  static is(user: User): user is Client {
+    return user instanceof Client;
+  }
+
   static of(user: User): Client {
     if (user instanceof Client) {
       return user;
