@@ -1,10 +1,10 @@
+import { Brand } from "../utils/brand";
 import { Admin } from "./admin";
+import { AVAILABLE_OPERATIONS } from "./available-operations";
 import { Moderator } from "./moderator";
 import { Operation } from "./operation";
 import { Role } from "./role";
-import { User } from "./user";
-
-type Brand<K, T> = K & { __brand: T }
+import { isPrivilegedUser, LoggedUser, PrivilegedUser, User } from "./user";
 
 const AVAILABLE_CONFIGURATION_MODERATOR = {
     [Role.ADMIN]: [],
@@ -26,6 +26,31 @@ type AVAILABLE_CONFIGURATION_A = Brand<
     readonly Operation[],
     (typeof AVAILABLE_CONFIGURATION_ADMIN)[Role]
 >;
+
+export class ConfigOperation {
+  
+    static from(user: User, loggedUser: LoggedUser): ConfigOperation {
+      if (isPrivilegedUser(loggedUser)) {
+          return new ConfigOperation(user, loggedUser);
+      }
+  
+      throw new TypeError("Not permisison!");
+    }
+  
+    public getAvailableOperations() {
+        return this.useOperation(this.user, this.privilegedUser);
+    }
+
+    private useOperation<U1 extends User, U2 extends PrivilegedUser>(user: U1, currentUser: U2) {
+        return AVAILABLE_OPERATIONS[currentUser.role][user.role] as AVAILABLE_OPERATIONS[U2["role"]][U1["role"]];
+    }
+    private readonly _type = Symbol("ConfigOperationAdmin");
+
+    protected constructor(
+      private readonly user: User,
+      private readonly privilegedUser: PrivilegedUser
+    ) {}
+}
 
 export class ConfigOperationAdmin {
   
@@ -72,4 +97,4 @@ export class ConfigOperationModerator {
 }
 
 export type AVAILABLE_CONFIGURATION = AVAILABLE_CONFIGURATION_M | AVAILABLE_CONFIGURATION_A;
-export type ConfigOperation = ConfigOperationAdmin | ConfigOperationModerator;
+// export type ConfigOperation = ConfigOperationAdmin | ConfigOperationModerator;

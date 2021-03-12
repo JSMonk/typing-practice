@@ -2,9 +2,10 @@ import { Role } from "../entities/role";
 import { Admin } from "../entities/admin";
 import { Client } from "../entities/client";
 import { Moderator } from "../entities/moderator";
-import { LoggedUser, User } from "../entities/user";
+import { isPrivilegedUser, LoggedUser, PrivilegedUser, User } from "../entities/user";
 import type { RoleToUser } from "../entities/role-to-user";
-import { AVAILABLE_CONFIGURATION, ConfigOperationAdmin, ConfigOperationModerator } from "../entities/config-operation";
+import { ConfigOperation } from "../entities/config-operation";
+import { AVAILABLE_OPERATIONS } from "../entities/available-operations";
 
 export default class UserService {
 
@@ -46,20 +47,21 @@ export default class UserService {
     return this.users;
   }
 
-  getAvailableOperations<U extends User>(
-    user: U,
-    currenUser: LoggedUser
-  ): AVAILABLE_CONFIGURATION {
-    if (this.isLoggedUserAdmin(currenUser)) {
-      const Config = ConfigOperationAdmin.from(user, currenUser);
-      return Config.getAvailableOperations();
-    } else {
-      const Config = ConfigOperationModerator.from(user, currenUser);
-      return Config.getAvailableOperations();
-    }
-  }
+  getAvailableOperations<U1 extends User, U2 extends LoggedUser>(
+    user: U1,
+    currentUser: U2
+  ) {
+    return AVAILABLE_OPERATIONS[currentUser.role][user.role] as AVAILABLE_OPERATIONS[U2["role"]][U1["role"]];
 
-  private isLoggedUserAdmin(loggedUser: LoggedUser): loggedUser is Admin {
-    return Admin.is(loggedUser);
+    // const configOperation = ConfigOperation.from(user, currentUser);
+    // const s =  configOperation.getAvailableOperations();
+
+    // if (Admin.is(currenUser)) {
+    //   const Config = ConfigOperationAdmin.from(user, currenUser);
+    //   return Config.getAvailableOperations();
+    // } else {
+    //   const Config = ConfigOperationModerator.from(user, currenUser);
+    //   return Config.getAvailableOperations();
+    // }
   }
 }

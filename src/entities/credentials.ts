@@ -1,27 +1,57 @@
 import userService from "../services/user-service";
-import { Admin } from "./admin";
-import { Moderator } from "./moderator";
+import { Brand } from "../utils/brand";
 import { LoggedUser, User } from "./user";
 
 // function opaque type
 // https://www.reddit.com/r/typescript/comments/f5wny3/implementing_an_opaque_type_in_typescript/
+
+type Email = Brand<string, 'Email'>;
+type Password = Brand<string, 'Password'>;
 
 export type Credentials = {
     email: string;
     password: string;
 };
   
-export class CredentialsInput {
+export class CredentialsValid {
+    public readonly email: Email;
+    public readonly password: Password;
+
+    private getCorectEmail(email: Credentials['email']): Email {
+        // or some other validates
+        for (let u of this.users) {
+            if (u.email === email) {
+                return email as Email;
+            }
+        }
+
+        throw new Error("Email not valid");
+    }
+    private getCorectPassword(password: Credentials['password']): Password {
+        // or some other validates
+        for (let u of this.users) {
+            if (u.password === password) {
+                return password as Password;
+            }
+        }
+
+        throw new Error("Password not valid");
+    }
+
     constructor(
-        public readonly email: Credentials['email'],
-        public readonly password: Credentials['password'],
-    ) {}
+        email: Credentials['email'],
+        password: Credentials['password'],
+        public readonly users: readonly User[]
+    ) {
+        this.email = this.getCorectEmail(email);
+        this.password = this.getCorectPassword(password);
+    }
 }
 
 export class CredentialsCorrect {
-    static isCorrect(users: readonly User[], credentionals: CredentialsInput) {
+    static from(users: readonly User[], email: Email, pass: Password) {
         for (let u of users) {
-            if (u.email === credentionals.email && u.password === credentionals.password) {
+            if (u.email === email && u.password === pass) {
                 return new CredentialsCorrect(u);
             }
         }
@@ -37,13 +67,10 @@ export class CredentialsCorrect {
 }
 
 export class CredentialsApproved {
-    static isApproved(cred: CredentialsCorrect) {
+    static from(cred: CredentialsCorrect) {
         const User = userService.getConstructorByRole(cred.user.role);
         const user = User.from(cred.user);
-        if (Moderator.is(user) || Admin.is(user)) {
-            return new CredentialsApproved(user);
-        }
-        throw new Error("Permission denied");
+        return new CredentialsApproved(user as LoggedUser);
     }
 
     private readonly _type = Symbol("CredentialsApproved");

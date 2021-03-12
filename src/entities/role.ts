@@ -1,7 +1,7 @@
 export enum Role {
-  ADMIN = "admin",
-  CLIENT = "client",
-  MODERATOR = "moderator"
+  ADMIN = "ADMIN",
+  CLIENT = "CLIENT",
+  MODERATOR = "MODERATOR"
 }
 
 export type LoggedRole = Role.ADMIN | Role.MODERATOR;

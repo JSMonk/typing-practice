@@ -1,11 +1,16 @@
-import type { Admin } from "./admin";
+import { Brand } from "../utils/brand";
+import { Admin } from "./admin";
 import type { Client } from "./client";
-import type { Moderator } from "./moderator";
+import { Moderator } from "./moderator";
 
 export type User = Admin | Client | Moderator;
-export type LoggedUser = Admin | Moderator;
+export type LoggedUser = Brand<Admin | Client |  Moderator, 'LoggedUser'>;
+export type PrivilegedUser = Brand<Admin | Moderator, 'PrivilegedUser'>;
 
-export enum LoggedUserEnum {
-    ADMIN,
-    MODERATOR
+export function isPrivilegedUser(user: User): user is PrivilegedUser {
+    if (Admin.is(user) || Moderator.is(user)) {
+        return true;
+    }
+
+    return false;
 }
