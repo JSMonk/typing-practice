@@ -1,5 +1,8 @@
-import type { Admin } from "./admin";
-import type { Client } from "./client";
-import type { Moderator } from "./moderator";
+import * as t from "runtypes";
+import { Admin } from "./admin";
+import { Client } from "./client";
+import { Moderator } from "./moderator";
 
-export type User = Admin | Client | Moderator;
+export const User = t.Union(Admin, Client, Moderator);
+
+export type User = t.Static<typeof User>
