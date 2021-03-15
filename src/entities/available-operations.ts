@@ -19,4 +19,4 @@ export const AVAILABLE_OPERATIONS = {
     }
 } as const;
 
-export type AVAILABLE_OPERATIONS = typeof AVAILABLE_OPERATIONS;
+export type AVAILABLE_OPERATIONS_T = typeof AVAILABLE_OPERATIONS;

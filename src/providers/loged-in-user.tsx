@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react";
-import type { LoggedUser, User } from "../entities/user";
+import type { LoggedUser } from "../entities/user";
 import type { ReactChild } from "react";
 
 export enum LogedInActionType {
