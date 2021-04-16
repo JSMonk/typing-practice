@@ -24,7 +24,7 @@ export default function useLogin(credentials: Credentials | null): User | null {
       )
       .then(() => navigate("/"))
       .catch((e) => alert(e.message));
-  }, [credentials, dispatch]);
+  }, [credentials, dispatch, loginService]);
 
   return state.user;
 }
