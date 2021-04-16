@@ -12,6 +12,11 @@ type ActionsProps = {
 
 export default function Actions({ user, currentUser, onAction }: ActionsProps) {
   const operations = useOperations(user, currentUser);
+
+  if (operations.length === 0) {
+    return null;
+  }
+
   const menu = (
     <Menu>
       {operations.map((operation, key) => (
