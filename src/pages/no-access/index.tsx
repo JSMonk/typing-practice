@@ -9,8 +9,8 @@ export default function NoAccess(_: RouteComponentProps) {
       title="403"
       subTitle="Sorry, you do not have permissions to view this page."
       extra={
-        <Link to="/" className="ant-btn ant-btn-primary">
-          Back Home
+        <Link to="/login" className="ant-btn ant-btn-primary">
+          Log out
         </Link>
       }
     />
