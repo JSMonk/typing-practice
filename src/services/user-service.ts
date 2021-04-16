@@ -34,14 +34,26 @@ export default class UserService {
     return this.users;
   }
 
-  getAvailableOperations(user: User, currenUser: User): Operation[] {
-    // Вам нужно поменять логику внутри getAvailableOperations для того, что бы это работало с логином
-    throw new Error("Not Implemented")
-    // if (user instanceof Admin || user instanceof Client) {
-    //   return [Operation.UPDATE_TO_MODERATOR];
-    // }
+  getAvailableOperations(user: User, currentUser: User): Operation[] {
+    if (currentUser instanceof Admin) {
+      if (user instanceof Admin || user instanceof Client) {
+        return [Operation.UPDATE_TO_MODERATOR];
+      }
 
-    // return [Operation.UPDATE_TO_CLIENT, Operation.UPDATE_TO_ADMIN];
+      return [Operation.UPDATE_TO_CLIENT, Operation.UPDATE_TO_ADMIN];
+    }
+
+    if (currentUser instanceof Moderator) {
+      if (user instanceof Client) {
+        return [Operation.UPDATE_TO_MODERATOR];
+      }
+
+      if (user instanceof Moderator) {
+        return [Operation.UPDATE_TO_CLIENT];
+      }
+    }
+
+    return [];
   }
 
   getConstructorByRole(role: Role) {

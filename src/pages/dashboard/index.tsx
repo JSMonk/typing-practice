@@ -8,10 +8,18 @@ import useCurrentUser from "../../hooks/use-current-user";
 import { Table, Breadcrumb } from "antd";
 import type { User } from "../../entities/user";
 import type { RouteComponentProps } from "@reach/router";
+import { Role as RoleType } from "../../entities/role";
+import useAccessControl from "../../hooks/use-access-control";
+import NoAccess from "../no-access";
 
 export default function Dashboard(_: RouteComponentProps) {
   const currentUser = useCurrentUser();
   const [users, onUserUpdates] = useUsers();
+  const hasAccess = useAccessControl([RoleType.MODERATOR, RoleType.ADMIN]);
+
+  if (!hasAccess) {
+    return <NoAccess />;
+  }
 
   const columns = [
     {
