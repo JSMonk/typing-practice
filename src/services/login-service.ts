@@ -1,3 +1,4 @@
+import type { Role } from "../entities/role";
 import type { User } from "../entities/user";
 import UserService from "./user-service";
 
@@ -18,5 +19,12 @@ export default class LoginService {
     }
 
     return user;
+  }
+
+  public hasAccess(currentUser: User, allowedRoles: Role[]): boolean {
+    return allowedRoles.some((role) => {
+      const User = this.userService.getConstructorByRole(role);
+      return currentUser instanceof User;
+    });
   }
 }
