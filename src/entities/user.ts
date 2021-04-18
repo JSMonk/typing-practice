@@ -12,7 +12,6 @@ export function isPrivilegedUser(user: LoggedUser): user is PrivilegedUser {
     or(Moderator, Admin);
     return true;
   } catch (e) {
-    alert(e);
     return false;
   }
 }
