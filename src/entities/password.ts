@@ -1,7 +1,5 @@
-import { Credentials } from "./credentials";
-
 export class Password {
-  public static from(notValidPassword: Credentials["password"]) {
+  public static from(notValidPassword: string) {
     if (typeof notValidPassword === "string") {
       return new Password(notValidPassword);
     }
@@ -11,5 +9,5 @@ export class Password {
 
   private readonly _type = Symbol("password");
 
-  protected constructor(public readonly value: Credentials["password"]) {}
+  protected constructor(public readonly value: string) {}
 }

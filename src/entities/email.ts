@@ -1,7 +1,5 @@
-import { Credentials } from "./credentials";
-
 export class Email {
-  public static from(notValidEmail: Credentials["email"]) {
+  public static from(notValidEmail: string) {
     if (typeof notValidEmail === "string") {
       return new Email(notValidEmail);
     }
@@ -11,5 +9,5 @@ export class Email {
 
   private readonly _type = Symbol("Email");
 
-  protected constructor(public readonly value: Credentials["email"]) {}
+  protected constructor(public readonly value: string) {}
 }
