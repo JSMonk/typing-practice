@@ -2,7 +2,7 @@ import { Role } from "../entities/role";
 import { Admin } from "../entities/admin";
 import { Client } from "../entities/client";
 import { Moderator } from "../entities/moderator";
-import { PrivilegedUser, User } from "../entities/user";
+import { User } from "../entities/user";
 import type { RoleToUser } from "../entities/role-to-user";
 import { AVAILABLE_OPERATIONS, AVAILABLE_OPERATIONS_T } from "../entities/available-operations";
 
@@ -45,7 +45,7 @@ export default class UserService {
     }
   }
 
-  getAvailableOperations<U1 extends User, U2 extends PrivilegedUser>(
+  getAvailableOperations<U1 extends User, U2 extends User>(
     user: U1,
     currentUser: U2
   ) {

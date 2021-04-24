@@ -1,4 +1,4 @@
-import { LoggedUser } from "../entities/user";
+import { User } from "../entities/user";
 import UserService from "./user-service";
 import { Email } from "../entities/email";
 import { Password } from "../entities/password";
@@ -6,7 +6,7 @@ import { Password } from "../entities/password";
 export default class LoginService {
   constructor(private readonly userService: UserService) {}
 
-  public async login(email: Email, password: Password): Promise<LoggedUser> {
+  public async login(email: Email, password: Password): Promise<User> {
     const users = await this.userService.getAllUsers();
 
     for (let u of users) {

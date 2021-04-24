@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { LogedInUser } from "../providers/loged-in-user";
 import { navigate } from "@reach/router";
-import { LoggedUser } from "../entities/user";
+import { User } from "../entities/user";
 
-export default function useCurrentUser(): LoggedUser {
+export default function useCurrentUser(): User {
   const { state: { user } = { user: null } } = useContext(LogedInUser);
 
   if (user === null) {
