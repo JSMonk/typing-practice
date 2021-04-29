@@ -5,6 +5,8 @@ import { Moderator } from "../entities/moderator";
 import { User } from "../entities/user";
 import type { RoleToUser } from "../entities/role-to-user";
 import { AVAILABLE_OPERATIONS, AVAILABLE_OPERATIONS_T } from "../entities/available-operations";
+import {Email} from "../entities/email";
+import {Password} from "../entities/password";
 
 export default class UserService {
   private users: readonly User[] = [];
@@ -23,6 +25,21 @@ export default class UserService {
       return User.from(u);
     });
     return this.users;
+  }
+
+  getUserByPassAndEmail(
+      users: readonly User[],
+      email: Email,
+      password: Password
+  ): User {
+    for (let u of users) {
+      if (u.email === email.value && u.password === password.value) {
+        const User = this.getConstructorByRole(u.role);
+        return User.from(u);
+      }
+    }
+
+    throw new Error("Password or email is incorrect");
   }
 
   async updateUserRole<R extends Role>(

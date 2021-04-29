@@ -8,14 +8,6 @@ export default class LoginService {
 
   public async login(email: Email, password: Password): Promise<User> {
     const users = await this.userService.getAllUsers();
-
-    for (let u of users) {
-      if (u.email === email.value && u.password === password.value) {
-        const User = this.userService.getConstructorByRole(u.role);
-        return User.from(u);
-      }
-    }
-
-    throw new Error("Password or email is incorrect");
+    return this.userService.getUserByPassAndEmail(users, email, password);
   }
 }
